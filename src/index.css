@@ -81,9 +81,53 @@ header nav > a:hover {
   padding: 12px 25px;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 200ms ease-in;
+  transition: transform 0.2s ease-in;
 }
 
 .home-page-container a:hover {
+  transform: translateY(-3px);
+}
+
+.about-hero-image {
+  width: 100%;
+}
+
+.about-page-content {
+  padding: 50px 60px;
+  color: #161616;
+}
+
+.about-page-content h1 {
+  font-size: 35px;
+}
+
+.about-page-content p {
+  margin-top: 30px;
+  font-size: 18px;
+}
+
+.about-page-cta {
+  background-color: #ffcc8d;
+  padding: 50px;
+}
+
+.about-page-cta h1 {
+  font-size: 30px;
+  color: #161616;
+}
+
+.about-page-cta a {
+  display: inline-block;
+  margin-top: 30px;
+  color: #fff;
+  font-size: 18px;
+  background-color: #161616;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in;
+}
+
+.about-page-cta a:hover {
   transform: translateY(-3px);
 }
