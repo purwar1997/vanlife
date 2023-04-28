@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background-color: #fff7ed;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px;
+}
+
+header .site-logo {
+  color: #000;
+  font-size: 25px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+header nav {
+  display: flex;
+  gap: 25px;
+}
+
+header nav > a {
+  color: #4d4d4d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+header nav > a:hover {
+  color: #000;
+}
+
+.home-page-container {
+  padding: 150px 100px;
+  height: calc(100vh - 90px);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.46)),
+    url('./assets/home-hero.png') no-repeat center center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  color: #fff;
+  text-align: center;
+}
+
+.home-page-container h1 {
+  font-size: 45px;
+  font-weight: 700;
+}
+
+.home-page-container p {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.home-page-container a {
+  display: inline-block;
+  margin-top: 40px;
+  background-color: #ff8c38;
+  font-size: 18px;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 200ms ease-in;
+}
+
+.home-page-container a:hover {
+  transform: translateY(-3px);
+}
