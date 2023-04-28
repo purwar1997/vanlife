@@ -63,11 +63,13 @@ createServer({
   },
 
   routes() {
+    this.namespace = 'api';
+
     this.get('/vans', (schema, _request) => {
       return schema.vans.all();
     });
 
-    this.get('/van/:id', (schema, request) => {
+    this.get('/vans/:id', (schema, request) => {
       const vanId = request.params.id;
       return schema.vans.find(vanId);
     });

@@ -131,3 +131,161 @@ header nav > a:hover {
 .about-page-cta a:hover {
   transform: translateY(-3px);
 }
+
+.vans-list-container {
+  padding: 20px 50px 50px 50px;
+}
+
+.vans-list-container h1 {
+  font-size: 35px;
+}
+
+.vans-list-container h2 {
+  margin-top: 25px;
+  font-size: 25px;
+}
+
+.vans-filter {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.vans-filter button {
+  background-color: #ffead0;
+  color: #161616;
+  padding: 9px 20px;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.vans-filter span {
+  cursor: pointer;
+}
+
+.vans-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.van-tile {
+  margin-top: 50px;
+  width: 300px;
+}
+
+.van-tile a img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.van-info {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #161616;
+}
+
+.van-info h3 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+.van-info span {
+  font-size: 18px;
+}
+
+.van-type {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 9px 20px;
+  font-size: 18px;
+  color: #fff;
+  text-transform: capitalize;
+  border-radius: 5px;
+}
+
+.simple {
+  background-color: #e17654;
+}
+
+.rugged {
+  background-color: #115e59;
+}
+
+.luxury {
+  background-color: #161616;
+}
+
+.van-container {
+  margin: 20px 50px 50px 50px;
+}
+
+.van-container > h2 {
+  margin-top: 25px;
+  font-size: 30px;
+}
+
+.van-container a {
+  font-size: 18px;
+  color: #161616;
+  text-decoration: none;
+}
+
+.van-card {
+  margin-top: 30px;
+  display: flex;
+  gap: 50px;
+}
+
+.van-image img {
+  width: 500px;
+  border-radius: 8px;
+}
+
+.van-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  color: #161616;
+}
+
+.van-details h1 {
+  font-size: 35px;
+}
+
+.van-details h2 {
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.van-price {
+  font-weight: 600;
+}
+
+.van-details p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.rent-van-btn {
+  background-color: #ff8c38;
+  color: #fff;
+  width: 200px;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.2s ease-in;
+}
+
+.rent-van-btn:hover {
+  cursor: pointer;
+  transform: translateY(-3px);
+}

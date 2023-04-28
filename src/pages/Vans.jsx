@@ -1,61 +1,59 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../server';
 
 export default function Vans() {
   const [vans, setVans] = useState([]);
   const [filter, setFilter] = useState(null);
 
   async function fetchVans() {
-    const response = await fetch('/vans');
-    const data = JSON.parse(await response.json());
-    setVans(data);
+    const vansList = JSON.parse(localStorage.getItem('vans'));
+
+    if (vansList) {
+      setVans(vansList);
+    } else {
+      const response = await fetch('/api/vans');
+      const { vans } = await response.json();
+      localStorage.setItem('vans', JSON.stringify(vans));
+      setVans(vans);
+    }
   }
 
   useEffect(() => {
     fetchVans();
   }, []);
 
-  function buttonColor(vanType) {
-    switch (vanType) {
-      case 'simple':
-        return '#E17654';
-
-      case 'rugged':
-        return '#115E59';
-
-      case 'luxury':
-        return '#161616';
-
-      default:
-        return '#FFEAD0';
-    }
-  }
+  const vansToDisplay = filter ? vans.filter(van => van.type === filter) : vans;
 
   return (
-    <div>
+    <div className='vans-list-container'>
       <h1>Explore our van options</h1>
-      {vans.length === 0 && <h2>Loading vans...</h2>}
-      <div>
-        <button onClick={() => setFilter('simple')}>Simple</button>
-        <button onClick={() => setFilter('rugged')}>Rugged</button>
-        <button onClick={() => setFilter('luxury')}>Luxury</button>
-        {filter && <span onClick={() => setFilter(null)}>Clear filter</span>}
-      </div>
-      <div>
-        {(filter ? vans.filter(van => van.type === filter) : vans).map(van => (
-          <div key={van.id}>
-            <Link to={`/van/${van.id}`}>
-              <img src={van.imageUrl} alt={van.name} />
-            </Link>
-            <div>
-              <span>{van.name}</span>
-              <span>${van.price}/day</span>
-            </div>
-            <span style={{ backgroundColor: buttonColor(van.type) }}>{van.type}</span>
+      {vans.length === 0 ? (
+        <h2>Loading vans...</h2>
+      ) : (
+        <>
+          <div className='vans-filter'>
+            <button onClick={() => setFilter('simple')}>Simple</button>
+            <button onClick={() => setFilter('rugged')}>Rugged</button>
+            <button onClick={() => setFilter('luxury')}>Luxury</button>
+            {filter && <span onClick={() => setFilter(null)}>Clear filter</span>}
           </div>
-        ))}
-      </div>
+
+          <div className='vans-list'>
+            {vansToDisplay.map(van => (
+              <div className='van-tile' key={van.id}>
+                <Link to={`/vans/${van.id}`}>
+                  <img src={van.imageUrl} alt={van.name} />
+                  <div className='van-info'>
+                    <h3>{van.name}</h3>
+                    <span>${van.price}/day</span>
+                  </div>
+                  <span className={`van-type ${van.type}`}>{van.type}</span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
