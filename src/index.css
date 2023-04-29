@@ -19,6 +19,11 @@ a {
   text-decoration: none;
 }
 
+a.active-link {
+  color: #000;
+  text-decoration: underline;
+}
+
 header {
   height: 90px;
   display: flex;
@@ -47,10 +52,24 @@ header nav > a {
 
 header nav > a:hover {
   color: #000;
+  text-decoration: underline;
+}
+
+footer {
+  height: 50px;
+  background-color: #161616;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  font-size: 15px;
+  color: #aaa;
 }
 
 .home-page-container {
-  padding: 150px 100px;
+  padding: 0px 100px;
   height: calc(100vh - 90px);
   background: linear-gradient(to right, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.46)),
     url('./assets/home-hero.png') no-repeat center center;
@@ -59,7 +78,11 @@ header nav > a:hover {
   -moz-background-size: cover;
   -o-background-size: cover;
   color: #fff;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
 }
 
 .home-page-container h1 {
@@ -68,13 +91,10 @@ header nav > a:hover {
 }
 
 .home-page-container p {
-  margin-top: 30px;
   font-size: 20px;
 }
 
 .home-page-container a {
-  display: inline-block;
-  margin-top: 40px;
   background-color: #ff8c38;
   font-size: 18px;
   color: #fff;
@@ -288,4 +308,20 @@ header nav > a:hover {
 .rent-van-btn:hover {
   cursor: pointer;
   transform: translateY(-3px);
+}
+
+.host-nav-links {
+  margin: 0px 50px;
+  display: flex;
+  gap: 30px;
+}
+
+.host-nav-links a {
+  color: #4d4d4d;
+  font-size: 18px;
+}
+
+.host-nav-links a:hover {
+  color: #000;
+  text-decoration: underline;
 }
