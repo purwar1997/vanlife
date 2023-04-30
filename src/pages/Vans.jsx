@@ -13,8 +13,8 @@ export default function Vans() {
     } else {
       const response = await fetch('/api/vans');
       const { vans } = await response.json();
-      localStorage.setItem('vans', JSON.stringify(vans));
       setVans(vans);
+      localStorage.setItem('vans', JSON.stringify(vans));
     }
   }
 
