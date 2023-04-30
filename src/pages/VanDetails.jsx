@@ -13,13 +13,15 @@ export default function VanDetails() {
 
   useEffect(() => {
     fetchVanDetails();
-  }, [id]);
+  }, []);
 
   return (
     <div className='van-container'>
       {van ? (
         <>
-          <Link to='/vans'>&#x2190; Back to all vans</Link>
+          <Link to='..' relative='path'>
+            &#x2190; Back to all vans
+          </Link>
           <div className='van-card'>
             <div className='van-image'>
               <img src={van.imageUrl} alt={van.name} />

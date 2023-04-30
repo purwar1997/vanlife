@@ -10,7 +10,7 @@ export default function HostVans() {
     if (hostVans) {
       setVans(hostVans);
     } else {
-      const response = await fetch('/api/vans');
+      const response = await fetch('/api/host/vans');
       const { vans } = await response.json();
       setVans(vans);
       localStorage.setItem('hostVans', JSON.stringify(vans));
@@ -27,7 +27,7 @@ export default function HostVans() {
       {vans.length > 0 ? (
         <div className='host-vans'>
           {vans.map(van => (
-            <Link to={`/host/vans/${van.id}`}>
+            <Link to={van.id} key={van.id}>
               <div className='host-van-card'>
                 <img src={van.imageUrl} alt={van.name} />
                 <div>

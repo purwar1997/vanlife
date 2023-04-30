@@ -6,20 +6,22 @@ export default function HostVanLayout() {
   const { id } = useParams();
 
   async function fetchVanDetails() {
-    const response = await fetch(`/api/vans/${id}`);
+    const response = await fetch(`/api/host/vans/${id}`);
     const { vans } = await response.json();
     setVan(vans);
   }
 
   useEffect(() => {
     fetchVanDetails();
-  }, [id]);
+  }, []);
 
   return (
     <div className='host-van-page'>
       {van ? (
         <>
-          <Link to='/host/vans'>&larr; Back to all vans</Link>
+          <Link to='..' relative='path'>
+            &larr; Back to all vans
+          </Link>
           <div className='host-van-container'>
             <div className='host-van-details'>
               <img src={van.imageUrl} alt={van.name} />
@@ -30,29 +32,17 @@ export default function HostVanLayout() {
               </div>
             </div>
             <nav className='host-van-nav-links'>
-              <NavLink
-                to={`/host/vans/${van.id}`}
-                className={({ isActive }) => (isActive ? 'active-link' : null)}
-                end
-              >
+              <NavLink to='.' end className={({ isActive }) => (isActive ? 'active-link' : null)}>
                 Details
               </NavLink>
-              <NavLink
-                to={`/host/vans/${van.id}/pricing`}
-                state={van.price}
-                className={({ isActive }) => (isActive ? 'active-link' : null)}
-              >
+              <NavLink to='pricing' className={({ isActive }) => (isActive ? 'active-link' : null)}>
                 Pricing
               </NavLink>
-              <NavLink
-                to={`/host/vans/${van.id}/photos`}
-                state={{ name: van.name, url: van.imageUrl }}
-                className={({ isActive }) => (isActive ? 'active-link' : null)}
-              >
+              <NavLink to='photos' className={({ isActive }) => (isActive ? 'active-link' : null)}>
                 Photos
               </NavLink>
             </nav>
-            <Outlet />
+            <Outlet context={van} />
           </div>
         </>
       ) : (

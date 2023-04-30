@@ -524,7 +524,7 @@ footer p {
 .host-van-nav-links {
   margin: 35px 0px;
   display: flex;
-  gap: 40px;
+  gap: 35px;
 }
 
 .host-van-nav-links a:hover {

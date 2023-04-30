@@ -5,7 +5,7 @@ export default function Dashboard() {
   const [vans, setVans] = useState([]);
 
   async function fetchVans() {
-    const response = await fetch('/api/vans');
+    const response = await fetch('/api/host/vans');
     const { vans } = await response.json();
     setVans(vans);
   }
@@ -25,7 +25,7 @@ export default function Dashboard() {
             </p>
             <h2>$2,260</h2>
           </div>
-          <Link to='/host/income'>Details</Link>
+          <Link to='income'>Details</Link>
         </div>
         <div className='review-score'>
           <div>
@@ -34,17 +34,17 @@ export default function Dashboard() {
               ⭐ 5.0<span>/5</span>
             </h3>
           </div>
-          <Link to='/host/reviews'>Details</Link>
+          <Link to='reviews'>Details</Link>
         </div>
         <div className='listed-vans-container'>
           <div className='listed-vans-header'>
             <h3>Your listed vans</h3>
-            <Link to='/host/vans'>View All</Link>
+            <Link to='vans'>View All</Link>
           </div>
           {vans.length > 0 ? (
             <div className='listed-vans'>
               {vans.map(van => (
-                <div className='listed-van-card'>
+                <div key={van.id} className='listed-van-card'>
                   <div className='listed-van'>
                     <img src={van.imageUrl} alt={van.name} />
                     <div>
@@ -52,7 +52,7 @@ export default function Dashboard() {
                       <p>${van.price}/day</p>
                     </div>
                   </div>
-                  <Link to={`/host/vans/${van.id}`}>View</Link>
+                  <Link to={`vans/${van.id}`}>View</Link>
                 </div>
               ))}
             </div>
