@@ -5,16 +5,16 @@ export default function HostVans() {
   const [vans, setVans] = useState([]);
 
   async function fetchVans() {
-    // const hostVans = JSON.parse(localStorage.getItem('hostVans'));
+    const hostVans = JSON.parse(localStorage.getItem('hostVans'));
 
-    // if (hostVans) {
-    //   setVans(hostVans);
-    // } else {
-    //   localStorage.setItem('hostVans', JSON.stringify(vans));
-    // }
-    const response = await fetch('/api/vans');
-    const { vans } = await response.json();
-    setVans(vans);
+    if (hostVans) {
+      setVans(hostVans);
+    } else {
+      const response = await fetch('/api/vans');
+      const { vans } = await response.json();
+      setVans(vans);
+      localStorage.setItem('hostVans', JSON.stringify(vans));
+    }
   }
 
   useEffect(() => {

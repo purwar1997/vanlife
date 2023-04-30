@@ -467,3 +467,80 @@ footer p {
   margin-top: 12px;
   font-size: 18px;
 }
+
+.host-van-page {
+  padding: 30px 50px;
+}
+
+.host-van-container {
+  margin-top: 40px;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.host-van-details {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.host-van-details img {
+  width: 200px;
+  border-radius: 8px;
+}
+
+.host-van-details > div > span {
+  color: #fff;
+  font-size: 18px;
+  text-transform: capitalize;
+  padding: 8px 20px;
+  border-radius: 5px;
+}
+
+.host-van-details > div > h2 {
+  margin-top: 30px;
+  font-size: 30px;
+}
+
+.host-van-details > div > h3 {
+  margin-top: 15px;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.host-van-nav-links {
+  margin: 35px 0px;
+  display: flex;
+  gap: 40px;
+}
+
+.host-van-nav-links a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.host-van-details-page > p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.host-van-details-page > p > span {
+  font-weight: 600;
+  color: #4d4d4d;
+}
+
+.host-van-pricing {
+  font-size: 28px;
+}
+
+.host-van-pricing span {
+  font-size: 20px;
+  color: #4d4d4d;
+}
+
+.host-van-photo {
+  width: 150px;
+  border-radius: 10px;
+}
