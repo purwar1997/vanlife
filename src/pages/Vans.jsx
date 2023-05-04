@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 
 export default function Vans() {
   const [vans, setVans] = useState([]);
-  const [filter, setFilter] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   async function fetchVans() {
     const vansList = JSON.parse(localStorage.getItem('vans'));
@@ -22,20 +22,48 @@ export default function Vans() {
     fetchVans();
   }, []);
 
+  const filter = searchParams.get('type');
   const vansToDisplay = filter ? vans.filter(van => van.type === filter) : vans;
 
   return (
     <div className='vans-list-container'>
       <h1>Explore our van options</h1>
-      {vans.length === 0 ? (
+      {vansToDisplay.length === 0 ? (
         <h2>Loading vans...</h2>
       ) : (
         <>
           <div className='vans-filter'>
-            <button onClick={() => setFilter('simple')}>Simple</button>
-            <button onClick={() => setFilter('rugged')}>Rugged</button>
-            <button onClick={() => setFilter('luxury')}>Luxury</button>
-            {filter && <span onClick={() => setFilter(null)}>Clear filter</span>}
+            <Link
+              to='?type=simple'
+              className='filter simple-type'
+              // style={({ isActive }) => (isActive ? { backgroundColor: '#e17654' } : null)}
+              // onClick={() => setSearchParams({ type: 'simple' })}
+            >
+              Simple
+            </Link>
+            <Link
+              to='?type=rugged'
+              className='filter rugged-type'
+              // onClick={() => setSearchParams({ type: 'rugged' })}
+            >
+              Rugged
+            </Link>
+            <Link
+              to='?type=luxury'
+              className='filter luxury-type'
+              // onClick={() => setSearchParams({ type: 'luxury' })}
+            >
+              Luxury
+            </Link>
+            {filter && (
+              <Link
+                to='.'
+                className='clear-filter'
+                // onClick={() => setSearchParams()}
+              >
+                Clear filter
+              </Link>
+            )}
           </div>
 
           <div className='vans-list'>
