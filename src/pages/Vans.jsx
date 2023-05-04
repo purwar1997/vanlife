@@ -22,6 +22,18 @@ export default function Vans() {
     fetchVans();
   }, []);
 
+  function handleFilterChange(key, value) {
+    setSearchParams(prevParams => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+
+      return prevParams;
+    });
+  }
+
   const filter = searchParams.get('type');
   const vansToDisplay = filter ? vans.filter(van => van.type === filter) : vans;
 
@@ -33,43 +45,35 @@ export default function Vans() {
       ) : (
         <>
           <div className='vans-filter'>
-            <Link
-              to='?type=simple'
-              className='filter simple-type'
-              // style={({ isActive }) => (isActive ? { backgroundColor: '#e17654' } : null)}
-              // onClick={() => setSearchParams({ type: 'simple' })}
+            <button
+              className={`filter simple-type ${filter === 'simple' ? 'simple' : ''}`}
+              onClick={() => handleFilterChange('type', 'simple')}
             >
               Simple
-            </Link>
-            <Link
-              to='?type=rugged'
-              className='filter rugged-type'
-              // onClick={() => setSearchParams({ type: 'rugged' })}
+            </button>
+            <button
+              className={`filter rugged-type ${filter === 'rugged' ? 'rugged' : ''}`}
+              onClick={() => handleFilterChange('type', 'rugged')}
             >
               Rugged
-            </Link>
-            <Link
-              to='?type=luxury'
-              className='filter luxury-type'
-              // onClick={() => setSearchParams({ type: 'luxury' })}
+            </button>
+            <button
+              className={`filter luxury-type ${filter === 'luxury' ? 'luxury' : ''}`}
+              onClick={() => handleFilterChange('type', 'luxury')}
             >
               Luxury
-            </Link>
+            </button>
             {filter && (
-              <Link
-                to='.'
-                className='clear-filter'
-                // onClick={() => setSearchParams()}
-              >
+              <span className='clear-filter' onClick={() => handleFilterChange('type', null)}>
                 Clear filter
-              </Link>
+              </span>
             )}
           </div>
 
           <div className='vans-list'>
             {vansToDisplay.map(van => (
               <div className='van-tile' key={van.id}>
-                <Link to={van.id}>
+                <Link to={van.id} state={{ search: searchParams.toString() }}>
                   <img src={van.imageUrl} alt={van.name} />
                   <div className='van-info'>
                     <h3>{van.name}</h3>

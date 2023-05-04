@@ -180,6 +180,7 @@ footer p {
   color: #161616;
   padding: 9px 20px;
   font-size: 17px;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -241,21 +242,23 @@ footer p {
   margin-top: 20px;
   padding: 9px 20px;
   font-size: 18px;
-  color: #fff;
   text-transform: capitalize;
   border-radius: 5px;
 }
 
 .simple {
   background-color: #e17654;
+  color: #fff;
 }
 
 .rugged {
   background-color: #115e59;
+  color: #fff;
 }
 
 .luxury {
   background-color: #161616;
+  color: #fff;
 }
 
 /* Van Details page */
@@ -572,4 +575,34 @@ footer p {
 .host-van-photo {
   width: 150px;
   border-radius: 10px;
+}
+
+/* Not Found page */
+.not-found-page {
+  width: 50%;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.not-found-page h1 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.not-found-page a {
+  display: inline-block;
+  margin-top: 40px;
+  background-color: #161616;
+  color: #fff;
+  font-size: 19px;
+  padding: 15px 30px;
+  border-radius: 5px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.not-found-page a:hover {
+  cursor: pointer;
+  opacity: 0.85;
 }
