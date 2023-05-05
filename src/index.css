@@ -606,3 +606,8 @@ footer p {
   cursor: pointer;
   opacity: 0.85;
 }
+
+.message {
+  margin-top: 20px;
+  margin-left: 50px;
+}

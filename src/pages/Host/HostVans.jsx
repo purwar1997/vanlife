@@ -4,15 +4,31 @@ import { getHostVans } from '../../api';
 
 export default function HostVans() {
   const [vans, setVans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function loadHostVans() {
-      const vans = await getHostVans();
-      setVans(vans);
+      try {
+        const vans = await getHostVans();
+        setVans(vans);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadHostVans();
   }, []);
+
+  if (loading) {
+    return <h2 className='message'>Loading vans...</h2>;
+  }
+
+  if (error) {
+    return <h2 className='message'>{error.message}</h2>;
+  }
 
   return (
     <div className='host-vans-page'>
@@ -32,7 +48,7 @@ export default function HostVans() {
           ))}
         </div>
       ) : (
-        <h2>Loading vans...</h2>
+        <h2>You haven't listed any vans</h2>
       )}
     </div>
   );

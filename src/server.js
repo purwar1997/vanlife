@@ -72,7 +72,8 @@ createServer({
     this.namespace = 'api';
 
     this.get('/vans', (schema, _request) => {
-      return schema.vans.all();
+      // return schema.vans.all();
+      return this.response({ status: 400 });
     });
 
     this.get('/vans/:id', (schema, request) => {

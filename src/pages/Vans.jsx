@@ -1,19 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useSearchParams, useLoaderData, Link } from 'react-router-dom';
 import { getVans } from '../api';
 
+export async function loader() {
+  return getVans();
+}
+
 export default function Vans() {
-  const [vans, setVans] = useState([]);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const vans = useLoaderData();
 
-  useEffect(() => {
-    async function loadVans() {
-      const vans = await getVans();
-      setVans(vans);
-    }
-
-    loadVans();
-  }, []);
+  console.log(vans);
 
   function handleFilterChange(key, value) {
     setSearchParams(prevParams => {
@@ -27,15 +25,17 @@ export default function Vans() {
     });
   }
 
+  if (error) {
+    return <h2 className='message'>{error.message}</h2>;
+  }
+
   const filter = searchParams.get('type');
-  const vansToDisplay = filter ? vans.filter(van => van.type === filter) : vans;
+  const vansDisplayed = filter ? vans.filter(van => van.type === filter) : vans;
 
   return (
     <div className='vans-list-container'>
       <h1>Explore our van options</h1>
-      {vansToDisplay.length === 0 ? (
-        <h2>Loading vans...</h2>
-      ) : (
+      {vansDisplayed.length > 0 ? (
         <>
           <div className='vans-filter'>
             <button
@@ -64,7 +64,7 @@ export default function Vans() {
           </div>
 
           <div className='vans-list'>
-            {vansToDisplay.map(van => (
+            {vansDisplayed.map(van => (
               <div className='van-tile' key={van.id}>
                 <Link to={van.id} state={{ search: searchParams.toString() }}>
                   <img src={van.imageUrl} alt={van.name} />
@@ -78,6 +78,8 @@ export default function Vans() {
             ))}
           </div>
         </>
+      ) : (
+        <h2>Sorry, vans not found</h2>
       )}
     </div>
   );

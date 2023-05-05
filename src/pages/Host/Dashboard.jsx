@@ -4,11 +4,13 @@ import { getHostVans } from '../../api';
 
 export default function Dashboard() {
   const [vans, setVans] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadHostVans() {
       const vans = await getHostVans();
       setVans(vans);
+      setLoading(false);
     }
 
     loadHostVans();
@@ -41,7 +43,9 @@ export default function Dashboard() {
             <h3>Your listed vans</h3>
             <Link to='vans'>View All</Link>
           </div>
-          {vans.length > 0 ? (
+          {loading ? (
+            <h2>Loading vans...</h2>
+          ) : vans.length > 0 ? (
             <div className='listed-vans'>
               {vans.map(van => (
                 <div key={van.id} className='listed-van-card'>
@@ -57,7 +61,7 @@ export default function Dashboard() {
               ))}
             </div>
           ) : (
-            <h2>Loading...</h2>
+            <h2>You haven't listed any vans</h2>
           )}
         </div>
       </div>
