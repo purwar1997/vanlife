@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSearchParams, useLoaderData, Link } from 'react-router-dom';
 import { getVans } from '../api';
 
@@ -7,11 +6,8 @@ export async function loader() {
 }
 
 export default function Vans() {
-  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const vans = useLoaderData();
-
-  console.log(vans);
 
   function handleFilterChange(key, value) {
     setSearchParams(prevParams => {
@@ -23,10 +19,6 @@ export default function Vans() {
 
       return prevParams;
     });
-  }
-
-  if (error) {
-    return <h2 className='message'>{error.message}</h2>;
   }
 
   const filter = searchParams.get('type');

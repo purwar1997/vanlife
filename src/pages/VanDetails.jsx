@@ -4,25 +4,41 @@ import { getVanDetails } from '../api';
 
 export default function VanDetails() {
   const [van, setVan] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const location = useLocation();
   const { search } = location.state;
 
   useEffect(() => {
     async function loadVanDetails() {
-      const van = await getVanDetails(id);
-      setVan(van);
+      try {
+        const van = await getVanDetails(id);
+        setVan(van);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadVanDetails();
   }, [id]);
+
+  if (loading) {
+    return <h1 className='error'>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1 className='error'>{error.message}</h1>;
+  }
 
   return (
     <div className='van-container'>
       {van ? (
         <>
           <Link to={`..?${search}`} relative='path'>
-            &#x2190; Back to {search ? search.slice(5) : 'all'} vans
+            &larr; Back to {search ? search.slice(5) : 'all'} vans
           </Link>
           <div className='van-card'>
             <div className='van-image'>
@@ -40,7 +56,7 @@ export default function VanDetails() {
           </div>
         </>
       ) : (
-        <h2>Loading...</h2>
+        <h2>Van not found</h2>
       )}
     </div>
   );

@@ -5,12 +5,18 @@ import { getHostVans } from '../../api';
 export default function Dashboard() {
   const [vans, setVans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function loadHostVans() {
-      const vans = await getHostVans();
-      setVans(vans);
-      setLoading(false);
+      try {
+        const vans = await getHostVans();
+        setVans(vans);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadHostVans();
@@ -38,32 +44,36 @@ export default function Dashboard() {
           </div>
           <Link to='reviews'>Details</Link>
         </div>
-        <div className='listed-vans-container'>
-          <div className='listed-vans-header'>
-            <h3>Your listed vans</h3>
-            <Link to='vans'>View All</Link>
-          </div>
-          {loading ? (
-            <h2>Loading vans...</h2>
-          ) : vans.length > 0 ? (
-            <div className='listed-vans'>
-              {vans.map(van => (
-                <div key={van.id} className='listed-van-card'>
-                  <div className='listed-van'>
-                    <img src={van.imageUrl} alt={van.name} />
-                    <div>
-                      <h4>{van.name}</h4>
-                      <p>${van.price}/day</p>
-                    </div>
-                  </div>
-                  <Link to={`vans/${van.id}`}>View</Link>
-                </div>
-              ))}
+        {loading ? (
+          <h2 className='message'>Loading...</h2>
+        ) : error ? (
+          <h2 className='message'>{error.message}</h2>
+        ) : (
+          <div className='listed-vans-container'>
+            <div className='listed-vans-header'>
+              <h3>Your listed vans</h3>
+              <Link to='vans'>View All</Link>
             </div>
-          ) : (
-            <h2>You haven't listed any vans</h2>
-          )}
-        </div>
+            {vans.length > 0 ? (
+              <div className='listed-vans'>
+                {vans.map(van => (
+                  <div key={van.id} className='listed-van-card'>
+                    <div className='listed-van'>
+                      <img src={van.imageUrl} alt={van.name} />
+                      <div>
+                        <h4>{van.name}</h4>
+                        <p>${van.price}/day</p>
+                      </div>
+                    </div>
+                    <Link to={`vans/${van.id}`}>View</Link>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <h2>You haven't listed any vans</h2>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

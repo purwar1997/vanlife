@@ -4,16 +4,32 @@ import { getHostVanDetails } from '../../../api';
 
 export default function HostVanLayout() {
   const [van, setVan] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     async function loadHostVanDetails() {
-      const van = await getHostVanDetails(id);
-      setVan(van);
+      try {
+        const van = await getHostVanDetails(id);
+        setVan(van);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadHostVanDetails();
   }, [id]);
+
+  if (loading) {
+    return <h1 className='error'>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1 className='error'>{error.message}</h1>;
+  }
 
   return (
     <div className='host-van-page'>
@@ -46,7 +62,7 @@ export default function HostVanLayout() {
           </div>
         </>
       ) : (
-        <h2>Loading...</h2>
+        <h2>Van not found</h2>
       )}
     </div>
   );

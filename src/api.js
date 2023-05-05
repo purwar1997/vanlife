@@ -16,10 +16,8 @@ export async function getVans() {
   }
 
   const data = await response.json();
-  vans = data.vans;
-
-  //   localStorage.setItem('vans', JSON.stringify(vans));
-  return vans;
+  localStorage.setItem('vans', JSON.stringify(data.vans));
+  return data.vans;
 }
 
 export async function getHostVans() {
@@ -40,10 +38,8 @@ export async function getHostVans() {
   }
 
   const data = await response.json();
-  hostVans = data.vans;
-
-  //   localStorage.setItem('hostVans', JSON.stringify(hostVans));
-  return hostVans;
+  localStorage.setItem('hostVans', JSON.stringify(data.vans));
+  return data.vans;
 }
 
 export async function getVanDetails(id) {
