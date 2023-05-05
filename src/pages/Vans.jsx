@@ -1,25 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { getVans } from '../api';
 
 export default function Vans() {
   const [vans, setVans] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  async function fetchVans() {
-    const vansList = JSON.parse(localStorage.getItem('vans'));
-
-    if (vansList) {
-      setVans(vansList);
-    } else {
-      const response = await fetch('/api/vans');
-      const { vans } = await response.json();
-      setVans(vans);
-      localStorage.setItem('vans', JSON.stringify(vans));
-    }
-  }
-
   useEffect(() => {
-    fetchVans();
+    async function loadVans() {
+      const vans = await getVans();
+      setVans(vans);
+    }
+
+    loadVans();
   }, []);
 
   function handleFilterChange(key, value) {

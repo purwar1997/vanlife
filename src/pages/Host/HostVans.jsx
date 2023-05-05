@@ -1,24 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getHostVans } from '../../api';
 
 export default function HostVans() {
   const [vans, setVans] = useState([]);
 
-  async function fetchVans() {
-    const hostVans = JSON.parse(localStorage.getItem('hostVans'));
-
-    if (hostVans) {
-      setVans(hostVans);
-    } else {
-      const response = await fetch('/api/host/vans');
-      const { vans } = await response.json();
-      setVans(vans);
-      localStorage.setItem('hostVans', JSON.stringify(vans));
-    }
-  }
-
   useEffect(() => {
-    fetchVans();
+    async function loadHostVans() {
+      const vans = await getHostVans();
+      setVans(vans);
+    }
+
+    loadHostVans();
   }, []);
 
   return (

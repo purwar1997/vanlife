@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, NavLink, Outlet } from 'react-router-dom';
+import { getHostVanDetails } from '../../../api';
 
 export default function HostVanLayout() {
   const [van, setVan] = useState(null);
   const { id } = useParams();
 
-  async function fetchVanDetails() {
-    const response = await fetch(`/api/host/vans/${id}`);
-    const { vans } = await response.json();
-    setVan(vans);
-  }
-
   useEffect(() => {
-    fetchVanDetails();
-  }, []);
+    async function loadHostVanDetails() {
+      const van = await getHostVanDetails(id);
+      setVan(van);
+    }
+
+    loadHostVanDetails();
+  }, [id]);
 
   return (
     <div className='host-van-page'>
