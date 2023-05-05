@@ -615,3 +615,22 @@ footer p {
 .message {
   margin: 30px 50px;
 }
+
+.login-container {
+  margin: 30px auto;
+  width: 50vw;
+  text-align: center;
+}
+
+.login-container h1 {
+  font-size: 40px;
+}
+
+.login-form {
+  margin-top: 30px;
+}
+
+.login-form input {
+  background-color: #e5eeff;
+  padding: 10px;
+}

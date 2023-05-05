@@ -19,6 +19,7 @@ import HostVanLayout from './pages/Host/HostVan/HostVanLayout';
 import HostVanDetails from './pages/Host/HostVan/HostVanDetails';
 import HostVanPricing from './pages/Host/HostVan/HostVanPricing';
 import HostVanPhotos from './pages/Host/HostVan/HostVanPhotos';
+import LoginForm from './pages/LoginForm';
 import NotFound from './pages/NotFound';
 import Error from './components/Error';
 
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path='reviews' element={<Reviews />} />
       </Route>
+      <Route path='login' element={<LoginForm />} />
       <Route path='*' element={<NotFound />} />
     </Route>
   )
