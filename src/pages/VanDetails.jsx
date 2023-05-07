@@ -1,37 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useLocation, useLoaderData } from 'react-router-dom';
 import { getVanDetails } from '../api';
 
+export function loader({ params }) {
+  return getVanDetails(params.id);
+}
+
 export default function VanDetails() {
-  const [van, setVan] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
+  const van = useLoaderData();
   const location = useLocation();
   const { search } = location.state;
-
-  useEffect(() => {
-    async function loadVanDetails() {
-      try {
-        const van = await getVanDetails(id);
-        setVan(van);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadVanDetails();
-  }, [id]);
-
-  if (loading) {
-    return <h1 className='error'>Loading...</h1>;
-  }
-
-  if (error) {
-    return <h1 className='error'>{error.message}</h1>;
-  }
 
   return (
     <div className='van-container'>

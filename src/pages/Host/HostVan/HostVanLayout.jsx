@@ -1,35 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLoaderData } from 'react-router-dom';
 import { getHostVanDetails } from '../../../api';
 
+export function loader({ params }) {
+  return getHostVanDetails(params.id);
+}
+
 export default function HostVanLayout() {
-  const [van, setVan] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
-
-  useEffect(() => {
-    async function loadHostVanDetails() {
-      try {
-        const van = await getHostVanDetails(id);
-        setVan(van);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadHostVanDetails();
-  }, [id]);
-
-  if (loading) {
-    return <h1 className='error'>Loading...</h1>;
-  }
-
-  if (error) {
-    return <h1 className='error'>{error.message}</h1>;
-  }
+  const van = useLoaderData();
 
   return (
     <div className='host-van-page'>
