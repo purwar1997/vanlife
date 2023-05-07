@@ -6,7 +6,7 @@ export default function LoginForm() {
     password: '',
   });
 
-  function handleInput(event) {
+  function handleChange(event) {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   }
@@ -24,16 +24,16 @@ export default function LoginForm() {
         <input
           type='email'
           name='email'
-          placeholder='Email'
+          placeholder='Email address'
           value={user.email}
-          onChange={handleInput}
+          onChange={handleChange}
         />
         <input
           type='password'
           name='password'
           placeholder='Password'
           value={user.password}
-          onChange={handleInput}
+          onChange={handleChange}
         />
         <button type='submit'>Login</button>
       </form>
