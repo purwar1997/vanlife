@@ -23,31 +23,40 @@ import LoginForm from './pages/LoginForm';
 import NotFound from './pages/NotFound';
 import Error from './components/Error';
 
+import auth from './utils/auth';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />} errorElement={<Error />}>
       <Route index element={<Home />} />
       <Route path='about' element={<About />} />
-      <Route path='vans' loader={vansLoader} element={<Vans />} errorElement={<Error />} />
+      <Route path='vans' element={<Vans />} loader={vansLoader} errorElement={<Error />} />
       <Route
         path='vans/:id'
-        loader={vanDetailsLoader}
         element={<VanDetails />}
+        loader={vanDetailsLoader}
         errorElement={<Error />}
       />
-      <Route path='host' element={<HostLayout />}>
+      <Route
+        path='host'
+        element={<HostLayout />}
+        loader={async () => {
+          await auth();
+          return null;
+        }}
+      >
         <Route index element={<Dashboard />} />
         <Route path='income' element={<Income />} />
         <Route
           path='vans'
-          loader={hostVansLoader}
           element={<HostVans />}
+          loader={hostVansLoader}
           errorElement={<Error />}
         />
         <Route
           path='vans/:id'
-          loader={HostVanDetailsLoader}
           element={<HostVanLayout />}
+          loader={HostVanDetailsLoader}
           errorElement={<Error />}
         >
           <Route index element={<HostVanDetails />} />

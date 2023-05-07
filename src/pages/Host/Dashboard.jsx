@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getHostVans } from '../../api';
+import { getHostVans } from '../../utils/api';
 
 export default function Dashboard() {
   const [vans, setVans] = useState([]);

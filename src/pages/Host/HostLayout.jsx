@@ -1,6 +1,8 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLoaderData } from 'react-router-dom';
 
 export default function HostLayout() {
+  console.log(useLoaderData());
+
   const activeStyles = {
     color: '#000',
     textDecoration: 'underline',

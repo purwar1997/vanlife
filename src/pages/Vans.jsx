@@ -1,5 +1,5 @@
 import { useSearchParams, useLoaderData, Link } from 'react-router-dom';
-import { getVans } from '../api';
+import { getVans } from '../utils/api';
 
 export async function loader() {
   return getVans();
