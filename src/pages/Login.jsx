@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { loginUser } from '../utils';
 
 export function loader({ request }) {
@@ -18,6 +18,7 @@ export default function Login() {
   const [error, setError] = useState(null);
 
   const message = useLoaderData();
+  const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -34,7 +35,7 @@ export default function Login() {
     }
 
     loginUser(user)
-      .then(data => console.log(data))
+      .then(data => navigate('/host', { state: data, replace: true }))
       .catch(err => setError(err))
       .finally(() => setStatus('idle'));
   }
@@ -61,7 +62,7 @@ export default function Login() {
           type='submit'
           disabled={user.email === '' || user.password === '' || status === 'submitting'}
         >
-          Login
+          {status === 'submitting' ? 'Logging in...' : 'Login'}
         </button>
       </form>
       {error && <p className='login-error'>{error.message}</p>}

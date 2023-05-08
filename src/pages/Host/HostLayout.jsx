@@ -1,7 +1,8 @@
-import { NavLink, Outlet, useLoaderData } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 export default function HostLayout() {
-  console.log(useLoaderData());
+  const location = useLocation();
+  console.log(location.state);
 
   const activeStyles = {
     color: '#000',
