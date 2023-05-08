@@ -675,3 +675,8 @@ footer p {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.login-error {
+  font-size: 20px;
+  color: #cc0000;
+}

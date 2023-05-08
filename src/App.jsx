@@ -19,11 +19,11 @@ import HostVanLayout, { loader as HostVanDetailsLoader } from './pages/Host/Host
 import HostVanDetails from './pages/Host/HostVan/HostVanDetails';
 import HostVanPricing from './pages/Host/HostVan/HostVanPricing';
 import HostVanPhotos from './pages/Host/HostVan/HostVanPhotos';
-import LoginForm from './pages/LoginForm';
+import Login, { loader as loginLoader } from './pages/Login';
 import NotFound from './pages/NotFound';
 import Error from './components/Error';
 
-import auth from './utils/auth';
+import { requireAuth } from './utils';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,7 +41,7 @@ const router = createBrowserRouter(
         path='host'
         element={<HostLayout />}
         loader={async () => {
-          await auth();
+          await requireAuth();
           return null;
         }}
       >
@@ -65,7 +65,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path='reviews' element={<Reviews />} />
       </Route>
-      <Route path='login' element={<LoginForm />} />
+      <Route path='login' element={<Login />} loader={loginLoader} />
       <Route path='*' element={<NotFound />} />
     </Route>
   )

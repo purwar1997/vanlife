@@ -1,8 +1,9 @@
-import { createServer, Model } from 'miragejs';
+import { createServer, Model, Response } from 'miragejs';
 
 createServer({
   models: {
     vans: Model,
+    users: Model,
   },
 
   seeds(server) {
@@ -66,6 +67,18 @@ createServer({
       type: 'rugged',
       hostId: '456',
     });
+    server.create('user', {
+      id: 1,
+      name: 'Shubham Purwar',
+      email: 'shubhampurwar35@gmail.com',
+      password: 'coder@25',
+    });
+    server.create('user', {
+      id: 2,
+      name: 'Suyash Purwar',
+      email: 'suyashpurwar4035@gmail.com',
+      password: 'facebook06',
+    });
   },
 
   routes() {
@@ -87,6 +100,29 @@ createServer({
     this.get('/host/vans/:id', (schema, request) => {
       const id = request.params.id;
       return schema.vans.findBy({ id, hostId: '123' });
+    });
+
+    this.post('/login', (schema, request) => {
+      const { email, password } = JSON.parse(request.requestBody);
+      const user = schema.users.findBy({ email, password });
+
+      if (!user) {
+        return new Response(
+          404,
+          { 'Content-Type': 'application/json' },
+          { message: 'No user found with those credentials' }
+        );
+      }
+
+      user.password = undefined;
+
+      const data = {
+        user,
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6.IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ',
+      };
+
+      return data;
     });
   },
 });

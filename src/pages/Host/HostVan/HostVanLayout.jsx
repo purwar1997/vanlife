@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useLoaderData } from 'react-router-dom';
-import { getHostVanDetails } from '../../../utils/api';
+import { getHostVanDetails } from '../../../api';
 
 export function loader({ params }) {
   return getHostVanDetails(params.id);
