@@ -7,7 +7,7 @@ export default function Header() {
 
   function handleClick() {
     localStorage.removeItem('loggedIn');
-    navigate('/login');
+    navigate(`/login`);
   }
 
   return (

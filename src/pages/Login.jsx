@@ -2,8 +2,7 @@ import { useLoaderData, useActionData, useNavigation, redirect, Form } from 'rea
 import { loginUser } from '../utils';
 
 export function loader({ request }) {
-  const url = new URL(request.url);
-  const message = url.searchParams.get('message');
+  const message = new URL(request.url).searchParams.get('message');
   return message;
 }
 
@@ -12,10 +11,12 @@ export async function action({ request }) {
   const email = formData.get('email');
   const password = formData.get('password');
 
+  const path = new URL(request.url).searchParams.get('redirectTo') || '/host';
+
   try {
     await loginUser({ email, password });
     localStorage.setItem('loggedIn', true);
-    return redirect('/host');
+    return redirect(path);
   } catch (err) {
     return err;
   }
