@@ -1,7 +1,15 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import loginIcon from '../assets/avatar-icon.png';
 
 export default function Header() {
+  const navigate = useNavigate();
+  const loggedIn = localStorage.getItem('loggedIn');
+
+  function handleClick() {
+    localStorage.removeItem('loggedIn');
+    navigate('/login');
+  }
+
   return (
     <header>
       <Link className='site-logo' to='/'>
@@ -17,9 +25,13 @@ export default function Header() {
         <NavLink to='vans' className={({ isActive }) => (isActive ? 'active-link' : null)}>
           Vans
         </NavLink>
-        <Link to='login'>
-          <img className='login-icon' src={loginIcon} alt='login' />
-        </Link>
+        {loggedIn ? (
+          <button onClick={handleClick}>Logout</button>
+        ) : (
+          <Link to='login'>
+            <img className='login-icon' src={loginIcon} alt='login' />
+          </Link>
+        )}
       </nav>
     </header>
   );

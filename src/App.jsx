@@ -19,7 +19,7 @@ import HostVanLayout, { loader as HostVanDetailsLoader } from './pages/Host/Host
 import HostVanDetails from './pages/Host/HostVan/HostVanDetails';
 import HostVanPricing from './pages/Host/HostVan/HostVanPricing';
 import HostVanPhotos from './pages/Host/HostVan/HostVanPhotos';
-import Login, { loader as loginLoader } from './pages/Login';
+import Login, { loader as loginLoader, action as loginAction } from './pages/Login';
 import NotFound from './pages/NotFound';
 import Error from './components/Error';
 
@@ -37,16 +37,9 @@ const router = createBrowserRouter(
         loader={vanDetailsLoader}
         errorElement={<Error />}
       />
-      <Route
-        path='host'
-        element={<HostLayout />}
-        loader={async () => {
-          await requireAuth();
-          return null;
-        }}
-      >
-        <Route index element={<Dashboard />} />
-        <Route path='income' element={<Income />} />
+      <Route path='host' element={<HostLayout />} loader={requireAuth}>
+        <Route index element={<Dashboard />} loader={requireAuth} />
+        <Route path='income' element={<Income />} loader={requireAuth} />
         <Route
           path='vans'
           element={<HostVans />}
@@ -59,13 +52,13 @@ const router = createBrowserRouter(
           loader={HostVanDetailsLoader}
           errorElement={<Error />}
         >
-          <Route index element={<HostVanDetails />} />
-          <Route path='pricing' element={<HostVanPricing />} />
-          <Route path='photos' element={<HostVanPhotos />} />
+          <Route index element={<HostVanDetails />} loader={requireAuth} />
+          <Route path='pricing' element={<HostVanPricing />} loader={requireAuth} />
+          <Route path='photos' element={<HostVanPhotos />} loader={requireAuth} />
         </Route>
-        <Route path='reviews' element={<Reviews />} />
+        <Route path='reviews' element={<Reviews />} loader={requireAuth} />
       </Route>
-      <Route path='login' element={<Login />} loader={loginLoader} />
+      <Route path='login' element={<Login />} loader={loginLoader} action={loginAction} />
       <Route path='*' element={<NotFound />} />
     </Route>
   )
