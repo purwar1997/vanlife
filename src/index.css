@@ -619,7 +619,8 @@ footer p {
   margin-left: 50px;
 }
 
-.message {
+.message,
+.loader {
   margin: 30px 50px;
 }
 
