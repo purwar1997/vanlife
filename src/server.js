@@ -111,7 +111,7 @@ createServer({
         return new Response(
           404,
           { 'Content-Type': 'application/json' },
-          { message: 'No user with those credentials found!' }
+          { message: 'No user found with those credentials!' }
         );
       }
 

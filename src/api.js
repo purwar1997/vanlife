@@ -59,7 +59,7 @@ export async function loginUser(credentials) {
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
-    throw new Error('No user with those credentials found!');
+    throw new Error('No user found with those credentials!');
   }
 
   const doc = querySnapshot.docs[0];

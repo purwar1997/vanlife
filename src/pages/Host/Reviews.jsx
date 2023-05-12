@@ -46,6 +46,7 @@ export default function Reviews() {
                 <p>{review.date}</p>
               </div>
               <p className='review-text'>{review.text}</p>
+              <hr />
             </div>
           ))}
         </div>

@@ -76,19 +76,6 @@ header nav > a:hover {
   text-decoration: underline;
 }
 
-footer {
-  height: 50px;
-  background-color: #161616;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-footer p {
-  font-size: 15px;
-  color: #aaa;
-}
-
 /* Home page */
 .home-page-container {
   padding: 0px 100px;
@@ -123,7 +110,7 @@ footer p {
   padding: 12px 25px;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s ease-in;
+  transition: transform 0.3s ease-in-out;
 }
 
 .home-page-container a:hover {
@@ -168,7 +155,7 @@ footer p {
   padding: 12px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s ease-in;
+  transition: transform 0.3s ease-in-out;
 }
 
 .about-page-cta a:hover {
@@ -207,6 +194,7 @@ footer p {
 }
 
 .clear-filter {
+  font-size: 17px;
   cursor: pointer;
 }
 
@@ -342,7 +330,7 @@ footer p {
   font-size: 18px;
   border: none;
   border-radius: 5px;
-  transition: transform 0.2s ease-in;
+  transition: transform 0.3s ease-in-out;
 }
 
 .rent-van-btn:hover {
@@ -458,13 +446,13 @@ footer p {
 }
 
 .listed-van > div > h4 {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 400;
 }
 
 .listed-van > div > p {
   margin-top: 10px;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .listed-vans-container h2 {
@@ -635,7 +623,7 @@ footer p {
 
 /* Income page */
 .income-page {
-  margin: 30px 50px;
+  margin: 30px 50px 60px 50px;
 }
 
 .income-details {
@@ -714,6 +702,72 @@ footer p {
 }
 
 /* Reviews page */
+.reviews-page {
+  margin: 30px 50px 60px 50px;
+}
+
+.reviews-top h1 {
+  font-size: 35px;
+}
+
+.reviews-top p {
+  margin-top: 25px;
+  font-size: 19px;
+  color: #4d4d4d;
+}
+
+.reviews-top p span {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.reviews-graph {
+  margin-top: 35px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.reviews-section {
+  margin-top: 40px;
+}
+
+.reviews-section h3 {
+  font-size: 25px;
+}
+
+.review {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.review-star {
+  font-size: 18px;
+  color: #ff8c38;
+  margin-right: 5px;
+}
+
+.review-info {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.review-info h4 {
+  font-size: 20px;
+}
+
+.review-info p {
+  font-size: 18px;
+  color: #4d4d4d;
+}
+
+.review-text {
+  font-size: 18px;
+  color: #161616;
+  line-height: 1.4;
+}
 
 /* Login page */
 .login-container {
