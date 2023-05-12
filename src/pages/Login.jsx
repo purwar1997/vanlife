@@ -1,5 +1,5 @@
 import { useLoaderData, useActionData, useNavigation, redirect, Form } from 'react-router-dom';
-import { loginUser } from '../utils';
+import { loginUser } from '../api';
 
 export function loader({ request }) {
   const message = new URL(request.url).searchParams.get('message');

@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Link, useLocation, useLoaderData, defer, Await } from 'react-router-dom';
-import { getVanDetails } from '../api';
+import { getVan } from '../api';
 
 export function loader({ params }) {
-  return defer({ van: getVanDetails(params.id) });
+  return defer({ van: getVan(params.id) });
 }
 
 export default function VanDetails() {

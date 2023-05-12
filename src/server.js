@@ -68,13 +68,13 @@ createServer({
       hostId: '456',
     });
     server.create('user', {
-      id: 1,
+      id: '1',
       name: 'Shubham Purwar',
       email: 'shubhampurwar35@gmail.com',
       password: 'coder25',
     });
     server.create('user', {
-      id: 2,
+      id: '2',
       name: 'Suyash Purwar',
       email: 'suyashpurwar4035@gmail.com',
       password: 'facebook06',
