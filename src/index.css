@@ -62,6 +62,20 @@ header nav > a:hover {
   top: 2px;
 }
 
+.logout-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4d4d4d;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
 footer {
   height: 50px;
   background-color: #161616;
@@ -618,6 +632,88 @@ footer p {
 .error {
   margin: 30px 50px;
 }
+
+/* Income page */
+.income-page {
+  margin: 30px 50px;
+}
+
+.income-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.income-details h1 {
+  font-size: 35px;
+}
+
+.income-details p {
+  font-size: 19px;
+  color: #4d4d4d;
+}
+
+.income-details p span {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.income-details h2 {
+  font-size: 45px;
+  font-weight: 900;
+}
+
+.income-graph {
+  width: 100%;
+  max-width: 500px;
+}
+
+.transaction-details {
+  margin-top: 50px;
+}
+
+.transaction-details h2 {
+  font-size: 30px;
+}
+
+.transaction-details > p {
+  margin-top: 30px;
+  font-size: 19px;
+  color: #4d4d4d;
+}
+
+.transaction-details p span {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.transactions {
+  margin-top: 35px;
+}
+
+.transaction {
+  background-color: #fff;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  padding: 0px 35px;
+  border-radius: 10px;
+}
+
+.transaction h3 {
+  font-size: 42px;
+  color: #161616;
+}
+
+.transaction p {
+  font-size: 20px;
+  color: #4d4d4d;
+}
+
+/* Reviews page */
 
 /* Login page */
 .login-container {

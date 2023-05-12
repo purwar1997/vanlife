@@ -49,7 +49,23 @@ export async function getHostVan(id) {
   }
 }
 
-export async function loginUser(credentials) {}
+export async function loginUser(credentials) {
+  const q = query(
+    usersRef,
+    where('email', '==', credentials.email),
+    where('password', '==', credentials.password)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+    throw new Error('No user with those credentials found!');
+  }
+
+  const doc = querySnapshot.docs[0];
+  const data = { ...doc.data(), id: doc.id };
+  return data;
+}
 
 /** Functions to fetch data from mirageJS server */
 

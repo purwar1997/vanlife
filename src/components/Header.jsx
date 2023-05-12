@@ -26,7 +26,9 @@ export default function Header() {
           Vans
         </NavLink>
         {loggedIn ? (
-          <button onClick={handleClick}>Logout</button>
+          <button className='logout-btn' onClick={handleClick}>
+            Logout
+          </button>
         ) : (
           <Link to='login'>
             <img className='login-icon' src={loginIcon} alt='login' />
