@@ -614,13 +614,8 @@ footer p {
   opacity: 0.85;
 }
 
+.loader,
 .error {
-  margin-top: 30px;
-  margin-left: 50px;
-}
-
-.message,
-.loader {
   margin: 30px 50px;
 }
 

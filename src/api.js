@@ -16,7 +16,7 @@ export async function getVans() {
   }
 
   const data = await response.json();
-  localStorage.setItem('vans', JSON.stringify(data.vans));
+  // localStorage.setItem('vans', JSON.stringify(data.vans));
   return data.vans;
 }
 
@@ -38,7 +38,7 @@ export async function getHostVans() {
   }
 
   const data = await response.json();
-  localStorage.setItem('hostVans', JSON.stringify(data.vans));
+  // localStorage.setItem('hostVans', JSON.stringify(data.vans));
   return data.vans;
 }
 
