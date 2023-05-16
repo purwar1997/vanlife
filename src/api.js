@@ -1,3 +1,4 @@
+/**
 import db from './firebase.config';
 import {
   collection,
@@ -12,8 +13,11 @@ import {
 
 const vansRef = collection(db, 'vans');
 const usersRef = collection(db, 'users');
+*/
 
 /** Functions to read/write data on firestore */
+
+/**
 export async function getVans() {
   try {
     const querySnapshot = await getDocs(vansRef);
@@ -138,10 +142,10 @@ export async function signupUser(credentials) {
     user,
   };
 }
+*/
 
 /** Functions to read/write data on mirageJS in-memory database */
 
-/*
 export async function getVans() {
   const res = await fetch('/api/vans');
   const data = await res.json();
@@ -245,4 +249,3 @@ export async function signupUser(credentials) {
 
   return data.user;
 }
-*/
