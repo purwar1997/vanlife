@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { BsStarFill } from 'react-icons/bs';
 import { getHostVans } from '../../api';
 
 export default function Dashboard() {
@@ -8,7 +9,7 @@ export default function Dashboard() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function loadHostVans() {
+    async function loadVans() {
       try {
         const vans = await getHostVans();
         setVans(vans);
@@ -19,13 +20,13 @@ export default function Dashboard() {
       }
     }
 
-    loadHostVans();
+    loadVans();
   }, []);
 
   return (
-    <div className='dashboard-page'>
-      <div className='income'>
-        <div>
+    <section className='dashboard-page-container'>
+      <div className='income-section'>
+        <div className='income-info'>
           <h1>Welcome!</h1>
           <p>
             Income of last <span>30 days</span>
@@ -35,35 +36,39 @@ export default function Dashboard() {
         <Link to='income'>Details</Link>
       </div>
 
-      <div className='review-score'>
-        <div>
+      <div className='reviews-section'>
+        <div className='reviews-info'>
           <h2>Review Score</h2>
-          <h3>
-            ⭐ 5.0<span>/5</span>
-          </h3>
+          <div className='rating'>
+            <BsStarFill className='review-star' />
+            <h3>
+              5.0<span>/5</span>
+            </h3>
+          </div>
         </div>
         <Link to='reviews'>Details</Link>
       </div>
 
       {loading ? (
-        <h2 className='loader'>Loading vans...</h2>
+        <h2 className='message'>Loading vans...</h2>
       ) : error ? (
-        <h2 className='error'>{error.message}</h2>
+        <h2 className='message'>{error.message}</h2>
       ) : (
-        <div className='listed-vans-container'>
-          <div className='listed-vans-header'>
-            <h3>Your listed vans</h3>
-            <Link to='vans'>View All</Link>
+        <div className='listed-vans-section'>
+          <div className='listed-vans-top'>
+            <h2>Your listed vans</h2>
+            {vans.length > 0 && <Link to='vans'>View All</Link>}
           </div>
+
           {vans.length > 0 ? (
             <div className='listed-vans'>
-              {vans.map(van => (
-                <div key={van.id} className='listed-van-card'>
+              {vans.slice(0, 3).map(van => (
+                <div className='listed-van-card' key={van.id}>
                   <div className='listed-van'>
                     <img src={van.imageUrl} alt={van.name} />
-                    <div>
-                      <h4>{van.name}</h4>
-                      <p>${van.price}/day</p>
+                    <div className='listed-van-info'>
+                      <h3>{van.name}</h3>
+                      <h4>${van.price}/day</h4>
                     </div>
                   </div>
                   <Link to={`vans/${van.id}`}>View</Link>
@@ -71,10 +76,10 @@ export default function Dashboard() {
               ))}
             </div>
           ) : (
-            <h2>You haven't listed any vans</h2>
+            <p>You haven't listed any vans</p>
           )}
         </div>
       )}
-    </div>
+    </section>
   );
 }

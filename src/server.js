@@ -2,8 +2,8 @@ import { createServer, Model, Response } from 'miragejs';
 
 createServer({
   models: {
-    vans: Model,
-    users: Model,
+    van: Model,
+    user: Model,
   },
 
   seeds(server) {
@@ -67,63 +67,91 @@ createServer({
       type: 'rugged',
       hostId: '456',
     });
-    server.create('user', {
-      id: '1',
-      name: 'Shubham Purwar',
-      email: 'shubhampurwar35@gmail.com',
-      password: 'coder25',
-    });
-    server.create('user', {
-      id: '2',
-      name: 'Suyash Purwar',
-      email: 'suyashpurwar4035@gmail.com',
-      password: 'facebook06',
-    });
   },
 
   routes() {
     this.namespace = 'api';
-    this.timing = 2000;
+    this.timing = 1000;
 
     this.get('/vans', (schema, _request) => {
       return schema.vans.all();
     });
 
     this.get('/vans/:id', (schema, request) => {
-      const id = request.params.id;
-      return schema.vans.find(id);
+      const vanId = request.params.id;
+      return schema.vans.find(vanId);
     });
 
     this.get('/host/vans', (schema, _request) => {
       return schema.vans.where({ hostId: '123' });
     });
 
-    this.get('/host/vans/:id', (schema, request) => {
-      const id = request.params.id;
-      return schema.vans.findBy({ id, hostId: '123' });
+    this.get(`/host/vans/:id`, (schema, request) => {
+      const vanId = request.params.id;
+      return schema.vans.findBy({ hostId: '123', id: vanId });
     });
 
     this.post('/login', (schema, request) => {
       const { email, password } = JSON.parse(request.requestBody);
-      const user = schema.users.findBy({ email, password });
+
+      if (!(email && password)) {
+        return new Response(401, {}, { message: 'Please enter all the details' });
+      }
+
+      let user = schema.users.findBy({ email });
 
       if (!user) {
+        return new Response(401, {}, { message: 'Email not registered' });
+      }
+
+      if (password !== user.password) {
+        return new Response(401, {}, { message: 'Incorrect password' });
+      }
+
+      user = user.attrs;
+      user.password = undefined;
+
+      return {
+        message: 'User successfully logged in',
+        user,
+      };
+    });
+
+    this.post('/signup', (schema, request) => {
+      const { name, email, password, confirmPassword } = JSON.parse(request.requestBody);
+
+      if (!(name && email && password && confirmPassword)) {
+        return new Response(401, {}, { message: 'Please enter all the details' });
+      }
+
+      if (password !== confirmPassword) {
         return new Response(
-          404,
-          { 'Content-Type': 'application/json' },
-          { message: 'No user found with those credentials!' }
+          401,
+          {},
+          {
+            message: "Password and confirmed password don't match",
+          }
         );
       }
 
+      if (password.length < 6) {
+        return new Response(401, {}, { message: 'Password must be atleast 6 characters long' });
+      }
+
+      let user = schema.users.findBy({ email });
+
+      if (user) {
+        return new Response(401, {}, { message: 'Email already registered' });
+      }
+
+      user = schema.users.create({ name, email, password });
+      user = user.attrs;
       user.password = undefined;
 
-      const data = {
+      return {
+        message: 'User successfully signed up',
         user,
-        token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6.IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ',
       };
-
-      return data;
     });
   },
 });

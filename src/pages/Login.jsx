@@ -1,20 +1,29 @@
-import { useLoaderData, useActionData, useNavigation, redirect, Form } from 'react-router-dom';
+import {
+  Link,
+  Form,
+  redirect,
+  useActionData,
+  useLoaderData,
+  useNavigation,
+} from 'react-router-dom';
+
 import { loginUser } from '../api';
 
 export function loader({ request }) {
-  const message = new URL(request.url).searchParams.get('message');
-  return message;
+  const searchParams = new URL(request.url).searchParams;
+  const message = searchParams.get('message');
+  const path = searchParams.get('redirectTo') || '/host';
+  return { message, path };
 }
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const email = formData.get('email');
-  const password = formData.get('password');
+  const credentials = Object.fromEntries(formData.entries());
 
   const path = new URL(request.url).searchParams.get('redirectTo') || '/host';
 
   try {
-    await loginUser({ email, password });
+    await loginUser(credentials);
     localStorage.setItem('loggedIn', true);
     return redirect(path);
   } catch (err) {
@@ -23,21 +32,27 @@ export async function action({ request }) {
 }
 
 export default function Login() {
-  const message = useLoaderData();
+  const { message, path } = useLoaderData();
   const error = useActionData();
   const navigation = useNavigation();
 
   return (
-    <div className='login-container'>
-      {message ? <h1>{message}</h1> : <h1>Sign in to your account</h1>}
-      <Form method='post' replace className='login-form'>
+    <section className='login-page'>
+      <h1>{message || 'Sign in to your account'}</h1>
+      <Form className='input-form' method='post' replace>
         <input type='email' name='email' placeholder='Email address' />
         <input type='password' name='password' placeholder='Password' />
-        <button type='submit' disabled={navigation.state === 'submitting'}>
+        <button className='form-btn' type='submit'>
           {navigation.state === 'submitting' ? 'Logging in...' : 'Login'}
         </button>
       </Form>
-      {error && <p className='login-error'>{error.message}</p>}
-    </div>
+      {error && <p className='form-error'>{error.message}</p>}
+      <p className='signup'>
+        Don't have an account?{' '}
+        <Link to={`/signup?redirectTo=${path}`} replace>
+          Signup
+        </Link>
+      </p>
+    </section>
   );
 }

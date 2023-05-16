@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Link, useLocation, useLoaderData, defer, Await } from 'react-router-dom';
+import { useLocation, useLoaderData, defer, Await, Link } from 'react-router-dom';
 import { getVan } from '../api';
 
 export function loader({ params }) {
@@ -9,35 +9,33 @@ export function loader({ params }) {
 export default function VanDetails() {
   const data = useLoaderData();
   const location = useLocation();
-  const { search } = location.state;
+
+  const queryString = location.state?.queryString || '';
 
   function renderVan(van) {
     return (
-      <div className='van-container'>
-        {van ? (
-          <>
-            <Link to={`..?${search}`} relative='path'>
-              &larr; Back to {search ? search.slice(5) : 'all'} vans
+      <section className='van-details-container'>
+        <Link to={`..?${queryString}`} relative='path'>
+          &larr; Back to {queryString ? queryString.replace('type=', '') : 'all'} vans
+        </Link>
+
+        <div className='van'>
+          <img src={van.imageUrl} alt={van.name} />
+
+          <div className='van-details'>
+            <span className={van.type}>{van.type}</span>
+            <h1>{van.name}</h1>
+            <h2>
+              ${van.price}
+              <span>/day</span>
+            </h2>
+            <p>{van.description}</p>
+            <Link to='.' className='link-button rent-van-btn'>
+              Rent this van
             </Link>
-            <div className='van-card'>
-              <div className='van-image'>
-                <img src={van.imageUrl} alt={van.name} />
-              </div>
-              <div className='van-details'>
-                <span className={`van-type ${van.type}`}>{van.type}</span>
-                <h1>{van.name}</h1>
-                <h2>
-                  <span className='van-price'>${van.price}</span>/day
-                </h2>
-                <p>{van.description}</p>
-                <button className='rent-van-btn'>Rent this van</button>
-              </div>
-            </div>
-          </>
-        ) : (
-          <h2>Van not found</h2>
-        )}
-      </div>
+          </div>
+        </div>
+      </section>
     );
   }
 

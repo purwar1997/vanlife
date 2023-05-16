@@ -1,32 +1,33 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import loginIcon from '../assets/avatar-icon.png';
+import loginIcon from '../assets/images/avatar-icon.png';
 
 export default function Header() {
   const navigate = useNavigate();
-  const loggedIn = localStorage.getItem('loggedIn');
+  const isLoggedIn = localStorage.getItem('loggedIn');
 
-  function handleClick() {
+  function logoutUser() {
     localStorage.removeItem('loggedIn');
-    navigate(`/login`);
+    navigate('login');
   }
 
   return (
     <header>
-      <Link className='site-logo' to='/'>
-        VanLife
+      <Link to='.' className='site-logo'>
+        Vanlife
       </Link>
-      <nav>
-        <NavLink to='host' className={({ isActive }) => (isActive ? 'active-link' : null)}>
+
+      <nav className='nav-links'>
+        <NavLink to='host' className={({ isActive }) => (isActive ? 'active' : '')}>
           Host
         </NavLink>
-        <NavLink to='about' className={({ isActive }) => (isActive ? 'active-link' : null)}>
+        <NavLink to='about' className={({ isActive }) => (isActive ? 'active' : '')}>
           About
         </NavLink>
-        <NavLink to='vans' className={({ isActive }) => (isActive ? 'active-link' : null)}>
+        <NavLink to='vans' className={({ isActive }) => (isActive ? 'active' : '')}>
           Vans
         </NavLink>
-        {loggedIn ? (
-          <button className='logout-btn' onClick={handleClick}>
+        {isLoggedIn ? (
+          <button className='logout-btn' onClick={logoutUser}>
             Logout
           </button>
         ) : (

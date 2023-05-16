@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { useSearchParams, useLoaderData, Link, defer, Await } from 'react-router-dom';
+import { useSearchParams, useLoaderData, defer, Await, Link } from 'react-router-dom';
 import { getVans } from '../api';
 
 export function loader() {
@@ -10,12 +10,12 @@ export default function Vans() {
   const data = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  function handleFilterChange(key, value) {
+  function setSearchFilters(filter, value) {
     setSearchParams(prevParams => {
       if (value === null) {
-        prevParams.delete(key);
+        prevParams.delete(filter);
       } else {
-        prevParams.set(key, value);
+        prevParams.set(filter, value);
       }
 
       return prevParams;
@@ -23,59 +23,50 @@ export default function Vans() {
   }
 
   function renderVans(vans) {
-    const filter = searchParams.get('type');
-    const vansToDisplay = filter ? vans.filter(van => van.type === filter) : vans;
+    const vanType = searchParams.get('type');
+    const vansToDisplay = vanType ? vans.filter(van => van.type === vanType) : vans;
 
     return (
-      <div className='vans-list-container'>
+      <section className='vans-page-container'>
         <h1>Explore our van options</h1>
-        {vansToDisplay.length > 0 ? (
-          <>
-            <div className='vans-filter'>
-              <button
-                className={`filter simple-type ${filter === 'simple' ? 'simple' : ''}`}
-                onClick={() => handleFilterChange('type', 'simple')}
-              >
-                Simple
-              </button>
-              <button
-                className={`filter rugged-type ${filter === 'rugged' ? 'rugged' : ''}`}
-                onClick={() => handleFilterChange('type', 'rugged')}
-              >
-                Rugged
-              </button>
-              <button
-                className={`filter luxury-type ${filter === 'luxury' ? 'luxury' : ''}`}
-                onClick={() => handleFilterChange('type', 'luxury')}
-              >
-                Luxury
-              </button>
-              {filter && (
-                <span className='clear-filter' onClick={() => handleFilterChange('type', null)}>
-                  Clear filter
-                </span>
-              )}
-            </div>
 
-            <div className='vans-list'>
-              {vansToDisplay.map(van => (
-                <div className='van-tile' key={van.id}>
-                  <Link to={van.id} state={{ search: searchParams.toString() }}>
-                    <img src={van.imageUrl} alt={van.name} />
-                    <div className='van-info'>
-                      <h3>{van.name}</h3>
-                      <span>${van.price}/day</span>
-                    </div>
-                    <span className={`van-type ${van.type}`}>{van.type}</span>
-                  </Link>
+        <div className='vans-filter'>
+          <button
+            className={`filter simple-type ${vanType === 'simple' ? 'simple' : ''}`}
+            onClick={() => setSearchFilters('type', 'simple')}
+          >
+            Simple
+          </button>
+          <button
+            className={`filter rugged-type ${vanType === 'rugged' ? 'rugged' : ''}`}
+            onClick={() => setSearchFilters('type', 'rugged')}
+          >
+            Rugged
+          </button>
+          <button
+            className={`filter luxury-type ${vanType === 'luxury' ? 'luxury' : ''}`}
+            onClick={() => setSearchFilters('type', 'luxury')}
+          >
+            Luxury
+          </button>
+          {vanType && <span onClick={() => setSearchFilters('type', null)}>Clear filter</span>}
+        </div>
+
+        <div className='vans-container'>
+          {vansToDisplay.map(van => (
+            <div className='van-container' key={van.id}>
+              <Link to={van.id} state={{ queryString: searchParams.toString() }}>
+                <img src={van.imageUrl} alt={van.name} />
+                <div className='van-info'>
+                  <h2>{van.name}</h2>
+                  <h3>${van.price}/day</h3>
                 </div>
-              ))}
+                <span className={van.type}>{van.type}</span>
+              </Link>
             </div>
-          </>
-        ) : (
-          <h2>Sorry, vans not found</h2>
-        )}
-      </div>
+          ))}
+        </div>
+      </section>
     );
   }
 

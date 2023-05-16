@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
-import { useLoaderData, Link, defer, Await } from 'react-router-dom';
+import { useLoaderData, defer, Await, Link } from 'react-router-dom';
 import { getHostVans } from '../../api';
 import { requireAuth } from '../../utils';
 
 export async function loader({ request }) {
   await requireAuth(request);
-  return defer({ hostVans: getHostVans() });
+  return defer({ vans: getHostVans() });
 }
 
 export default function HostVans() {
@@ -13,32 +13,33 @@ export default function HostVans() {
 
   function renderHostVans(vans) {
     return (
-      <div className='host-vans-page'>
+      <section className='host-vans-container'>
         <h1>Your listed vans</h1>
+
         {vans.length > 0 ? (
           <div className='host-vans'>
             {vans.map(van => (
-              <Link to={van.id} key={van.id}>
-                <div className='host-van-card'>
+              <Link to={van.id}>
+                <div className='host-van-card' key={van.id}>
                   <img src={van.imageUrl} alt={van.name} />
-                  <div>
+                  <div className='host-van-info'>
                     <h3>{van.name}</h3>
-                    <p>${van.price}/day</p>
+                    <h4>${van.price}/day</h4>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
         ) : (
-          <h2>You haven't listed any vans</h2>
+          <p>You haven't listed any vans</p>
         )}
-      </div>
+      </section>
     );
   }
 
   return (
     <Suspense fallback={<h1 className='loader'>Loading vans...</h1>}>
-      <Await resolve={data.hostVans}>{hostVans => renderHostVans(hostVans)}</Await>
+      <Await resolve={data.vans}>{vans => renderHostVans(vans)}</Await>
     </Suspense>
   );
 }

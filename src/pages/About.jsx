@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import aboutImg from '../assets/about-hero.png';
+import aboutHeroImage from '../assets/images/about-hero.png';
 
 export default function About() {
   return (
-    <div className='about-page-container'>
-      <img className='about-hero-image' src={aboutImg} alt='about-page' />
-      <div className='about-page-content'>
+    <section className='about-page-container'>
+      <img src={aboutHeroImage} alt='hero-image' />
+
+      <div className='about-page-description'>
         <h1>Don't squeeze in a sedan when you could relax in a van.</h1>
         <p>
           Our mission is to enliven your road trip with the perfect travel van rental. Our vans are
@@ -17,14 +18,15 @@ export default function About() {
           on 4 wheels.
         </p>
       </div>
+
       <div className='about-page-cta'>
-        <h1>
-          Your destination is waiting.
-          <br />
-          Your van is ready.
-        </h1>
-        <Link to='/vans'>Explore our vans</Link>
+        <h2>
+          Your destination is waiting. <br /> Your van is ready.
+        </h2>
+        <Link to='/vans' className='link-button'>
+          Explore our vans
+        </Link>
       </div>
-    </div>
+    </section>
   );
 }
