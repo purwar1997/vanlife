@@ -39,6 +39,7 @@ export default function Login() {
   return (
     <section className='login-page'>
       <h1>{message || 'Sign in to your account'}</h1>
+
       <Form className='input-form' method='post' replace>
         <input type='email' name='email' placeholder='Email address' />
         <input type='password' name='password' placeholder='Password' />
@@ -46,7 +47,9 @@ export default function Login() {
           {navigation.state === 'submitting' ? 'Logging in...' : 'Login'}
         </button>
       </Form>
+
       {error && <p className='form-error'>{error.message}</p>}
+
       <p className='signup'>
         Don't have an account?{' '}
         <Link to={`/signup?redirectTo=${path}`} replace>

@@ -22,6 +22,7 @@ export default function Signup() {
   return (
     <section className='signup-page'>
       <h1>Signup to create your account</h1>
+
       <Form className='input-form' method='post' replace>
         <input type='text' name='name' placeholder='Name' />
         <input type='email' name='email' placeholder='Email address' />
@@ -31,6 +32,7 @@ export default function Signup() {
           {navigation.state === 'submitting' ? 'Signing up...' : 'Signup'}
         </button>
       </Form>
+
       {error && <p className='form-error'>{error.message}</p>}
     </section>
   );
