@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import Layout from './components/Layout';
+import Layout, { loader as layoutLoader } from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Vans, { loader as vansLoader } from './pages/Vans';
@@ -20,6 +20,7 @@ import HostVanDetails from './pages/Host/HostVan/HostVanDetails';
 import HostVanPricing from './pages/Host/HostVan/HostVanPricing';
 import HostVanPhotos from './pages/Host/HostVan/HostVanPhotos';
 import Login, { loader as loginLoader, action as loginAction } from './pages/Login';
+import { action as logoutAction } from './pages/Logout';
 import Signup, { action as signupAction } from './pages/Signup';
 import NotFound from './pages/NotFound';
 import Error from './components/Error';
@@ -28,7 +29,7 @@ import { requireAuth } from './utils';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Layout />} errorElement={<Error />}>
+    <Route path='/' element={<Layout />} loader={layoutLoader} errorElement={<Error />}>
       <Route index element={<Home />} />
       <Route path='about' element={<About />} />
       <Route path='vans' element={<Vans />} loader={vansLoader} errorElement={<Error />} />
@@ -83,6 +84,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path='login' element={<Login />} loader={loginLoader} action={loginAction} />
+      <Route path='logout' action={logoutAction} />
       <Route path='signup' element={<Signup />} action={signupAction} />
       <Route path='*' element={<NotFound />} />
     </Route>

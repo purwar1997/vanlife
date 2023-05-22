@@ -1,15 +1,7 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Form, Link, NavLink } from 'react-router-dom';
 import loginIcon from '../assets/images/avatar-icon.png';
 
-export default function Header() {
-  const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem('loggedIn');
-
-  function logoutUser() {
-    localStorage.removeItem('loggedIn');
-    navigate('login');
-  }
-
+export default function Header({ isLoggedIn }) {
   return (
     <header>
       <Link to='.' className='site-logo'>
@@ -27,9 +19,11 @@ export default function Header() {
           Vans
         </NavLink>
         {isLoggedIn ? (
-          <button className='logout-btn' onClick={logoutUser}>
-            Logout
-          </button>
+          <Form action='/logout' method='post'>
+            <button className='logout-btn' type='submit'>
+              Logout
+            </button>
+          </Form>
         ) : (
           <Link to='login'>
             <img className='login-icon' src={loginIcon} alt='login' />
