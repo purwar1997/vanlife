@@ -4,7 +4,7 @@ import aboutHeroImage from '../assets/images/about-hero.png';
 export default function About() {
   return (
     <section className='about-page-container'>
-      <img src={aboutHeroImage} alt='hero-image' />
+      <img src={aboutHeroImage} alt='hero-banner' />
 
       <div className='about-page-description'>
         <h1>Don't squeeze in a sedan when you could relax in a van.</h1>

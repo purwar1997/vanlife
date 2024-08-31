@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDmxBSN1B3Kk69ttjtRqAjcsBhp0ioHEwg',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'vanlife-29657.firebaseapp.com',
   projectId: 'vanlife-29657',
   storageBucket: 'vanlife-29657.appspot.com',
