@@ -12,7 +12,7 @@
 
 ## 1. Overview
 
-Vanlife is a static website that allows users to view information about rented vans. It is built using React and uses Firebase Firestore to store data.
+Vanlife is a static website that allows users to view information about rented vans. It is built with React and uses Firebase Firestore to store data.
 
 ## 2. Screens in this website
 
