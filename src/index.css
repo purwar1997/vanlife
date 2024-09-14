@@ -106,9 +106,7 @@ header {
   height: calc(100vh - 90px);
   background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url('./assets/images/home-hero.png') no-repeat center;
-  --webkit-background-size: cover;
-  --moz-background-size: cover;
-  --o-background-size: cover;
+  background-size: cover;
   padding: 0px 50px;
   display: flex;
   flex-direction: column;
