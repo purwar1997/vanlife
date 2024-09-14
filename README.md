@@ -33,7 +33,7 @@ Vanlife is a static website that allows users to view information about rented v
 
 ## 3. Tools and technologies used
 
-- Create-react-app utility to initialize React project
+- Create React App to initialize React project
 - Vanilla CSS to style UI components
 - React Router v6 to implement client side routing
 - Firestore database of Firebase to store data
