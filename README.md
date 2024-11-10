@@ -8,11 +8,11 @@
 1. [Overview](#1-overview)
 2. [Screens in this website](#2-screens-in-this-website)
 3. [Tools and technologies used](#3-tools-and-technologies-used)
-4. [Deployed Link](#4-deployed-link)
+4. [Live Link](#4-live-link)
 
 ## 1. Overview
 
-Vanlife is a static website that allows users to view information about rented vans. It is built with React and utilises Firebase Firestore to store data.
+Vanlife is a static web application that enables users to browse detailed information about available rental vans. It is built with `React` and utilizes `Firebase Firestore` for data storage.
 
 ![preview](./media/preview.png)
 
@@ -36,9 +36,9 @@ Vanlife is a static website that allows users to view information about rented v
 - Create React App to initialize React project
 - Vanilla CSS to style UI components
 - React Router v6 to implement client side routing
-- Firestore database of Firebase to store data
+- Firebase Firestore for data storage
 - Vercel for deployment
 
-## 4. Deployed Link
+## 4. Live Link
 
-To checkout the live demo of vanlife, [click here](https://vanlife-psi.vercel.app/).
+Vanlife is deployed on Vercel. **Live link** of the deployed project - [click here](https://vanlife-psi.vercel.app/).
